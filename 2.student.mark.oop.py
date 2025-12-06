@@ -5,7 +5,7 @@ class Student:
         self.dob = dob
         self.marks = {} 
 
-    def print(self):
+    def information(self):
         print("Name:", self.name)
         print("ID:", self.id)
         print("DoB:", self.dob)
@@ -18,7 +18,7 @@ class Course:
         self.id = course_id
         self.name = name
 
-    def print(self):
+    def information(self):
         print("ID:", self.id)
         print("Name:", self.name)
 
@@ -39,7 +39,7 @@ class School:
     def input_courses(self):
         num_courses = int(input("\nEnter number of courses: "))
         for i in range(num_courses):
-            course_id = input(f"Course {i+1} ID: ")
+            course_id = input(f"Course {i+1} ID: ") 
             name = input(f"Course {i+1} Name: ")
             self.courses.append(Course(course_id, name))
 
@@ -54,20 +54,31 @@ class School:
     def show_students(self):
         print("\nStudents")
         for student in self.students:
-            student.print()
+            student.information()
 
     def show_courses(self):
         print("\nCourses")
         for course in self.courses:
-            course.print()
+            course.information()
 
     def show_marks(self):
         print("\nMarks")
         for course in self.courses:
-            print(f"\nCourse: {course.name} ({course.id})")
+            print(f"\nCourse: {course.name} ({course.id})") 
             for student in self.students:
                 if course.id in student.marks:
                     print(f"{student.name} ({student.id}): {student.marks[course.id]}")
+
+    def choose_course(self):
+        course_id = input("\nEnter the course ID to view marks: ")
+        print(f"\nMarks for course {course_id}:")
+        for student in self.students:
+            if course_id in student.marks:
+                print(f"{student.name} ({student.id}): {student.marks[course_id]}")
+            else:
+                print(f"{student.name} ({student.id}): No mark recorded")
+
+
 
 if __name__ == "__main__":
     school = School()
@@ -78,3 +89,4 @@ if __name__ == "__main__":
     school.show_students()
     school.show_courses()
     school.show_marks()
+    school.choose_course()
